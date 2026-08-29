@@ -45,6 +45,12 @@ export const EMOJI_SET: EmojiEntry[] = [
     { char: '🐙', keywords: ['polpo', 'octopus'] },
     { char: '🍔', keywords: ['hamburger', 'burger'] },
     { char: '🐔', keywords: ['pollo', 'chicken', 'coniglio'] },
+    { char: '❤️', keywords: ['cuore', 'heart', 'amore', 'love'] },
+    { char: '😍', keywords: ['occhi a cuore', 'innamorato', 'heart eyes', 'amore'] },
+    { char: '🥒', keywords: ['zucchina', 'zucchini', 'cetriolo', 'cucumber'] },
+    { char: '🍩', keywords: ['ciambella', 'donut', 'buco'] },
+    { char: '😠', keywords: ['arrabbiato', 'angry', 'furioso'] },
+    { char: '😡', keywords: ['arrabbiato rosso', 'furioso', 'rage', 'rabbia'] },
 ];
 
 export function searchEmoji(query: string): EmojiEntry[] {
