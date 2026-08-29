@@ -1,5 +1,7 @@
-import { afterNextRender, Component, effect, inject, Injector, signal } from '@angular/core';
+import { afterNextRender, Component, effect, inject, Injector, signal, untracked } from '@angular/core';
 import { RoomStore } from '../../state/room.store';
+import { playPopSound } from '../../core/audio/pop-sound';
+import { EffectsSettingsService } from '../../core/settings/effects-settings.service';
 
 interface FlyingEmoji {
   id: string;
@@ -21,14 +23,24 @@ interface Point {
 })
 export class EmojiFlyOverlayComponent {
   readonly roomStore = inject(RoomStore);
+  readonly settingsService = inject(EffectsSettingsService);
   private readonly injector = inject(Injector);
 
   flying = signal<FlyingEmoji[]>([]);
 
+  private lastHandledId: string | null = null;
+
   constructor() {
     effect(() => {
       const evt = this.roomStore.lastEmojiThrow();
-      if (!evt) return;
+      if (!evt || evt.id === this.lastHandledId) return;
+
+      this.lastHandledId = evt.id;
+
+      if (untracked(() => this.settingsService.soundEnabled())) {
+        playPopSound();
+      }
+      
       this.spawn(evt.id, evt.emoji, evt.fromUserId, evt.targetUserId);
     });
   }

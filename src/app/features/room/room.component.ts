@@ -13,12 +13,15 @@ import { formatRoomName } from '../../core/utils/room-name-format';
 import { ModalComponent } from '../../shared/modal/modal.component';
 import { EmojiFlyOverlayComponent } from '../../shared/emoji-fly-overlay/emoji-fly-overlay.component';
 import { ResultsComponent } from './components/results/results.component';
+import { HitFlashComponent } from '../../shared/hit-flash/hit-flash.component';
+import { EffectsSettingsService } from '../../core/settings/effects-settings.service';
 
 @Component({
   selector: 'app-room',
   imports: [CommonModule, FormsModule, VotingPanelComponent, 
     TaskListComponent, ParticipantsTableComponent, ConnectionBadgeComponent, 
-    ThemeToggleComponent, ModalComponent, EmojiFlyOverlayComponent, ResultsComponent],
+    ThemeToggleComponent, ModalComponent, EmojiFlyOverlayComponent, ResultsComponent,
+    HitFlashComponent],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss',
 })
@@ -26,6 +29,7 @@ export class RoomComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   readonly roomStore = inject(RoomStore);
+  readonly effectsSettings = inject(EffectsSettingsService);
 
   readonly roomId = signal('');
   readonly needsName = signal(false);

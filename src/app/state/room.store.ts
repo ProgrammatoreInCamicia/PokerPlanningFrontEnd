@@ -86,6 +86,15 @@ export class RoomStore {
         return userVotes;
     });
 
+    readonly hitEvent = computed<EmojiThrownMessage | null>(() => {
+        const evt = this._lastEmojiThrow();
+        const myId = this._currentUser()?.userId;
+        if (evt && myId && evt.targetUserId === myId) {
+            return evt;
+        }
+        return null;
+    });
+
     readonly groupedVotes = computed(() => {
         const activeTask = this.activeTask();
         const groupedVotes = new Map<string | null, number>();
