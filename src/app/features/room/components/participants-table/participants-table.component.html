@@ -19,7 +19,7 @@
         <div class="participant-card facilitator-card" [attr.data-emoji-target]="fac.userId">
           <span class="role-icon">🎩</span>
         </div>
-        <span class="participant-name">{{ fac.userName }}</span>
+        <span class="participant-name" [title]="fac.userName">{{ fac.userName }}</span>
       </div>
     }
 
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-        <span class="participant-name">{{ item.participant.userName }}</span>
+        <span class="participant-name" [title]="item.participant.userName">{{ item.participant.userName }}</span>
       </div>
     }
 
