@@ -12,6 +12,13 @@
             >
                 🗑️
             </button>
+            <a
+            [href]="roomApiService.exportTasksUrl(roomId())"
+            class="action-button"
+            title="Esporta task"
+            download>
+                📤
+            </a>
         }
         
     </div>

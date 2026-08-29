@@ -44,4 +44,8 @@ export class RoomApiService {
 
         return this.http.post<void>(`${this.baseUrl}/${roomId}/importTasks`, formData)
     }
+
+    exportTasksUrl(roomId: string): string {
+        return `${this.baseUrl}/${roomId}/exportTasks`;
+    }
 }
