@@ -90,7 +90,7 @@ export class EmojiFlyOverlayComponent {
     }
 
     const animation = el.animate(keyframes, {
-      duration: 850,
+      duration: 1400,
       easing: 'ease-in-out',
       fill: 'forwards',
     });
