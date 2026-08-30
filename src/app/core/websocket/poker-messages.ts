@@ -10,7 +10,8 @@ export type OutgoingMessage =
     | { type: 'confirmEstimate'; taskId: string; finalEstimate: string }
     | { type: 'kickParticipant'; targetUserId: string }
     | { type: 'setRoomLocked'; locked: boolean }
-    | { type: 'promoteToFacilitator'; targetUserId: string };
+    | { type: 'promoteToFacilitator'; targetUserId: string }
+    | { type: 'changeUserName'; userName: string };
 
 export interface ParticipantDto {
     userId: string;

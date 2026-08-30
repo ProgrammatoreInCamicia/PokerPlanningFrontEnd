@@ -33,6 +33,7 @@ export class RoomStore {
     private readonly _tasks = signal<TaskDto[]>([]);
     private readonly _participants = signal<ParticipantDto[]>([]);
     private readonly _currentUser = signal<CurrentUser | null>(null);
+    private readonly _roomId = signal<string>('');
     private readonly _selectedVote = signal<string | null>(null);
     private readonly _lastEmojiThrow = signal<EmojiThrownMessage | null>(null);
     private readonly _locked = signal<boolean>(false);
@@ -46,6 +47,7 @@ export class RoomStore {
     readonly tasks = this._tasks.asReadonly();
     readonly participants = this._participants.asReadonly();
     readonly currentUser = this._currentUser.asReadonly();
+    readonly roomId = this._roomId.asReadonly();
     readonly connectionStatus = this.ws.connectionStatus;
     readonly selectedVote = this._selectedVote.asReadonly();
     readonly lastEmojiThrow = this._lastEmojiThrow.asReadonly();
@@ -170,6 +172,7 @@ export class RoomStore {
 
     // azioni pubbliche 
     async connectAndJoin(roomId: string, user: CurrentUser): Promise<void> {
+        this._roomId.set(roomId);
         this._currentUser.set(user);
         await this.ws.connect(roomId);
         this.ws.send({
@@ -225,6 +228,10 @@ export class RoomStore {
         this.ws.send({ type: 'promoteToFacilitator', targetUserId });
     }
 
+    changeUserName(userName: string): void {
+        this.ws.send({ type: 'changeUserName', userName });
+    }
+
     // Messaggi in arrivo dal server
     private applyServerMessage(msg: IncomingMessage): void {
         switch (msg.type) {
@@ -241,8 +248,8 @@ export class RoomStore {
                 
                 if (me) {
                     const current = this._currentUser();
-                    if (current && current.role !== me.role) {
-                        this._currentUser.set({ ...current, role: me.role }); // <-- ruolo sempre allineato al server
+                    if (current && (current.role !== me.role || current.userName !== me.userName)) {
+                        this._currentUser.set({ ...current, role: me.role, userName: me.userName }); // <-- ruolo sempre allineato al server
                     }
                     if (!me.hasVoted) {
                         this._selectedVote.set(null);
