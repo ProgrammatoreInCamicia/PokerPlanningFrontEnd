@@ -143,23 +143,44 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// .action-button {
-//     // width: 100%;
-//     padding: 0.75rem 1rem;
-//     background: #5b6cff;
-//     color: white;
-//     border: none;
-//     border-radius: 8px;
-//     font-size: 1rem;
-//     font-weight: 600;
-//     cursor: pointer;
-//     transition: background 0.15s;
-//     .action-button:hover:not(:disabled) {
-//         background: #4a58e0;
-//     }   
-    
-//     .action-button:disabled {
-//         background: #c5c9d6;
-//         cursor: not-allowed;
-//     }
-// }
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.45rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+
+    &:hover {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        border-color: var(--accent);
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+}
+
+.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.settings-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}

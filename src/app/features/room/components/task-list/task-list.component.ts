@@ -5,10 +5,11 @@ import { RoomApiService } from '../../../../core/http/room-api.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../../../shared/modal/modal.component';
+import { IconComponent } from '../../../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-task-list',
-  imports: [CommonModule, FormsModule, ModalComponent],
+  imports: [CommonModule, FormsModule, ModalComponent, IconComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })

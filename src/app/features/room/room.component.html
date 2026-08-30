@@ -16,34 +16,20 @@
         </div>
         <div class="header-actions">
           @if (roomStore.isFacilitator()) {
-            <button
-              class="action-button lock-toggle"
-              [class.active]="roomStore.locked()"
-              (click)="roomStore.setRoomLocked(!roomStore.locked())"
-              [title]="roomStore.locked() ? 'Stanza bloccata: nessun nuovo ingresso' : 'Stanza aperta'"
-            >
-              {{ roomStore.locked() ? '🔒' : '🔓' }}
+            <button class="icon-button" (click)="facilitatorDialog.openDialog()" title="Gestione stanza">
+              <app-icon name="sliders" [size]="18" />
             </button>
-            <select
-              class="preset-select"
-              [ngModel]="roomStore.preset()"
-              (ngModelChange)="onPresetChange($event)"
-              title="Cambia preset carte"
-            >
-              <option value="fibonacci">Fibonacci</option>
-              <option value="tshirt">Taglie (T-shirt)</option>
-            </select>
           }
+          <button class="icon-button" (click)="settingsDialog.openDialog()" title="Impostazioni">
+            <app-icon name="settings" [size]="18" />
+          </button>
           <app-connection-badge />
-          <app-theme-toggle />
-          <button class="action-button" (click)="effectsSettings.setBlinkEnabled(!effectsSettings.blinkEnabled())" [title]="'Effetto lampeggio: ' + (effectsSettings.blinkEnabled() ? 'On' : 'Off')">
-            {{ effectsSettings.blinkEnabled() ? '💡' : '🔅' }}
-          </button>
-          <button class="action-button" (click)="effectsSettings.setSoundEnabled(!effectsSettings.soundEnabled())" [title]="'Suoni: ' + (effectsSettings.soundEnabled() ? 'On' : 'Off')">
-            {{ effectsSettings.soundEnabled() ? '🔊' : '🔇' }}
-          </button>
         </div>
       </header>
+
+      <app-setting-dialog #settingsDialog />
+      <app-facilitator-dialog #facilitatorDialog />
+
       <main class="participants">
         <app-participants-table />
       </main>

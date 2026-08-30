@@ -15,13 +15,16 @@ import { EmojiFlyOverlayComponent } from '../../shared/emoji-fly-overlay/emoji-f
 import { ResultsComponent } from './components/results/results.component';
 import { HitFlashComponent } from '../../shared/hit-flash/hit-flash.component';
 import { EffectsSettingsService } from '../../core/settings/effects-settings.service';
+import { SettingDialogComponent } from '../../shared/setting-dialog/setting-dialog.component';
+import { FacilitatorDialogComponent } from '../../shared/facilitator-dialog/facilitator-dialog.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-room',
   imports: [CommonModule, FormsModule, VotingPanelComponent, 
     TaskListComponent, ParticipantsTableComponent, ConnectionBadgeComponent, 
-    ThemeToggleComponent, ModalComponent, EmojiFlyOverlayComponent, ResultsComponent,
-    HitFlashComponent],
+    ModalComponent, EmojiFlyOverlayComponent, ResultsComponent, IconComponent,
+    HitFlashComponent, SettingDialogComponent, FacilitatorDialogComponent],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss',
 })

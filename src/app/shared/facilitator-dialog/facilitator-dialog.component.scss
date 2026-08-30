@@ -1,0 +1,14 @@
+select {
+    padding: 0.5rem 0.7rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+        border-color: var(--accent);
+    }
+}

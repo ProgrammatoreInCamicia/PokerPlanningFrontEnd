@@ -1,0 +1,54 @@
+.settings-value-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &:hover {
+        color: var(--text-primary);
+    }
+}
+
+.name-edit {
+    display: flex;
+    gap: 0.4rem;
+
+    input {
+        padding: 0.4rem 0.6rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+        background: var(--bg-elevated);
+        color: var(--text-primary);
+        font-size: 0.9rem;
+    }
+}
+
+.settings-toggle-group {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.toggle-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.6rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+
+    &:hover {
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+    }
+
+    &.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--accent-text);
+    }
+}

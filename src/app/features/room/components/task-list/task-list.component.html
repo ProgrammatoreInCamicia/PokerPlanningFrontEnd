@@ -3,21 +3,24 @@
         <h2>Tasks</h2>
         @if(roomStore.currentUser()?.role === 'facilitator') {
             <input #fileInput type="file" (change)="onFileSelected($event)" accept=".csv" hidden/>
-            <button title="Import tasks" class="action-button" (click)="openFilePicker()" [disabled]="importing()">📂</button>
+            <button title="Import tasks" class="icon-button" (click)="openFilePicker()" [disabled]="importing()">
+                <app-icon name="folder-up" [size]="18" />
+            </button>
             <button 
                 title="Reset tasks" 
-                class="action-button" 
+                class="icon-button" 
                 (click)="roomStore.resetTasks()" 
                 [disabled]="roomStore.tasks()?.length === 0"
             >
-                🗑️
+                <app-icon name="trash" [size]="18" />
             </button>
             <a
-            [href]="roomApiService.exportTasksUrl(roomId())"
-            class="action-button"
-            title="Esporta task"
-            download>
-                📤
+                [href]="roomApiService.exportTasksUrl(roomId())"
+                class="icon-button"
+                title="Esporta task"
+                download
+            >
+                <app-icon name="download" [size]="18" />
             </a>
         }
         

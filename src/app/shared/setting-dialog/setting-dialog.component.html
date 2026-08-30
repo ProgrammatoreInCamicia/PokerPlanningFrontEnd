@@ -1,0 +1,61 @@
+<app-modal [open]="open()" title="Impostazioni" (closed)="close()">
+    <div class="settings-content">
+
+        <div class="settings-row">
+            <span class="settings-label">Nome utente</span>
+            @if (editingName()) {
+                <div class="name-edit">
+                    <input type="text" [(ngModel)]="nameInput" (keydown.enter)="confirmName()" />
+                    <button class="action-button" (click)="confirmName()">✓</button>
+                </div>
+            } @else {
+                <button class="settings-value-button" (click)="startEditingName()">
+                    {{ roomStore.currentUser()?.userName }}
+                    <app-icon name="pencil" [size]="14" />
+                </button>
+            }
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">Tema</span>
+            <div class="settings-toggle-group">
+                <button
+                    class="toggle-option"
+                    [class.active]="themeService.preference() === 'system'"
+                    (click)="themeService.setPreference('system')"
+                >
+                    <app-icon name="monitor" [size]="16" />
+                </button>
+                <button
+                    class="toggle-option"
+                    [class.active]="themeService.preference() === 'light'"
+                    (click)="themeService.setPreference('light')"
+                >
+                    <app-icon name="sun" [size]="16" />
+                </button>
+                <button
+                    class="toggle-option"
+                    [class.active]="themeService.preference() === 'dark'"
+                    (click)="themeService.setPreference('dark')"
+                >
+                    <app-icon name="moon" [size]="16" />
+                </button>
+            </div>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">Effetto lampeggio</span>
+            <button class="action-button" (click)="effectsSettings.setBlinkEnabled(!effectsSettings.blinkEnabled())">
+                {{ effectsSettings.blinkEnabled() ? 'On' : 'Off' }}
+            </button>
+        </div>
+
+        <div class="settings-row">
+            <span class="settings-label">Suoni</span>
+            <button class="action-button" (click)="effectsSettings.setSoundEnabled(!effectsSettings.soundEnabled())">
+                {{ effectsSettings.soundEnabled() ? 'On' : 'Off' }}
+            </button>
+        </div>
+
+    </div>
+</app-modal>

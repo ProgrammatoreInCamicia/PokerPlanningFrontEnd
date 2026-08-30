@@ -2,6 +2,7 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { RoomStore } from '../../../../state/room.store';
 import { ParticipantDto } from '../../../../core/websocket/poker-messages';
 import { EmojiPopoverComponent } from '../../../../shared/emoji-popover/emoji-popover.component';
+import { IconComponent } from '../../../../shared/icon/icon.component';
 
 interface PositionedParticipant {
   participant: ParticipantDto;
@@ -11,7 +12,7 @@ interface PositionedParticipant {
 
 @Component({
   selector: 'app-participants-table',
-  imports: [EmojiPopoverComponent],
+  imports: [EmojiPopoverComponent, IconComponent],
   templateUrl: './participants-table.component.html',
   styleUrl: './participants-table.component.scss',
 })
