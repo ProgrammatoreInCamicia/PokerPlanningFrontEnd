@@ -224,6 +224,10 @@ export class RoomStore {
         this.ws.send({ type: 'setRoomLocked', locked });
     }
 
+    addTask(taskTitle: string): void {
+        this.ws.send({ type: 'addTask', taskTitle });
+    }
+
     promoteToFacilitator(targetUserId: string): void {
         this.ws.send({ type: 'promoteToFacilitator', targetUserId });
     }

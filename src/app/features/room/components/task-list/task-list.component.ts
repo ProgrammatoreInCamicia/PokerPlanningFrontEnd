@@ -30,6 +30,8 @@ export class TaskListComponent {
   readonly priorityColumn = signal<string | null>(null);
   readonly linkColumn = signal<string | null>(null);
 
+  readonly newTaskTitle = signal('');
+
   selectTask(task: TaskDto): void {
     if (this.roomStore.currentUser()?.role !== 'facilitator') return;
     this.roomStore.selectTask(task.id);
@@ -105,5 +107,12 @@ export class TaskListComponent {
       if (status === 400) return 'File CSV non valido';
     }
     return 'Errore durante il caricamento del file';
+  }
+
+  addTask(): void {
+    const title = this.newTaskTitle().trim();
+    if (!title) return;
+    this.roomStore.addTask(title);
+    this.newTaskTitle.set('');
   }
 }

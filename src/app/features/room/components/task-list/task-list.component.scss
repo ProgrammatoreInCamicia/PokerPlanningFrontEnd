@@ -159,3 +159,28 @@
     padding: 0.1rem 0.5rem;
     border-radius: 999px; // pillola tonda, resta come già l'hai
 }
+
+.add-task-row {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 20px 10px;
+
+    input {
+        flex: 1;
+        padding: 0.5rem 0.7rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: var(--sidebar-item-bg);
+        color: var(--sidebar-text);
+        font-size: 0.85rem;
+
+        &::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+        }
+
+        &:focus {
+        outline: none;
+        border-color: var(--accent);
+        }
+    }
+}
