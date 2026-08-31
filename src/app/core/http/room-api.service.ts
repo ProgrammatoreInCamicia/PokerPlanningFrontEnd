@@ -48,4 +48,13 @@ export class RoomApiService {
     exportTasksUrl(roomId: string): string {
         return `${this.baseUrl}/${roomId}/exportTasks`;
     }
+
+    async roomExists(roomId: string): Promise<boolean> {
+        try {
+            await firstValueFrom(this.http.get(`${this.baseUrl}/${roomId}/exists`));
+            return true;
+        } catch {
+            return false;
+        }
+    }
 }

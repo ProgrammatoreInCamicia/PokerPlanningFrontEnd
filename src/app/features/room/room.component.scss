@@ -99,6 +99,34 @@
         height: 100%;
         color: var(--text-secondary);
     }
+
+    .room-not-found {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 1rem;
+        text-align: center;
+        padding: 2rem;
+
+        h2 {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin: 0;
+            color: var(--text-secondary);
+            max-width: 400px;
+        }
+
+        .link-secondary {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+    }
 }
 
 .join-prompt {
@@ -141,3 +169,4 @@
         margin: 0;
     }
 }
+

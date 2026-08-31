@@ -2,7 +2,7 @@
 <app-hit-flash />
 <app-results />
 <div class="room-content" [class.blurred]="needsName()">
-  @if (!needsName() && !joining()) {
+  @if (!needsName() && !joining() && !roomNotFound()) {
     <div class="room-main-content">
       <header class="header">
         <div class="header-info">
@@ -44,6 +44,17 @@
 
   @if (joining() && !needsName()) {
     <p class="connecting-message">Connessione in corso...</p>
+  }
+
+  @if (roomNotFound()) {
+    <div class="room-not-found">
+      <h2>La stanza "{{ roomId() }}" non esiste</h2>
+      <p>Il link potrebbe essere scaduto, o la stanza non è mai stata creata. Vuoi crearne una nuova con questo nome?</p>
+      <button class="action-button" (click)="createRoomWithSameName()" [disabled]="joining()">
+        {{ joining() ? 'Creazione...' : 'Crea una nuova stanza' }}
+      </button>
+      <a routerLink="/" class="link-secondary">Torna alla home</a>
+    </div>
   }
 </div>
 <app-modal [open]="needsName()" [closable]="false" title="Unisciti alla stanza">
