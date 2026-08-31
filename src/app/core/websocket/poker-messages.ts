@@ -12,7 +12,8 @@ export type OutgoingMessage =
     | { type: 'setRoomLocked'; locked: boolean }
     | { type: 'promoteToFacilitator'; targetUserId: string }
     | { type: 'changeUserName'; userName: string }
-    | { type: 'addTask'; taskTitle: string };
+    | { type: 'addTask'; taskTitle: string }
+    | { type: 'deleteTask'; taskId: string };
 
 export interface ParticipantDto {
     userId: string;

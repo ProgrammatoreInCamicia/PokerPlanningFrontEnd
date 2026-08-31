@@ -35,6 +35,9 @@
 
         &:hover {
             background-color: var(--sidebar-item-hover);
+            .task-delete-button {
+                opacity: 1;
+            }
         }
 
         .task-title {
@@ -59,6 +62,22 @@
 
         &.disabled {
             cursor: not-allowed;
+        }
+        .task-delete-button {
+            flex-shrink: 0;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0.2rem;
+            border-radius: var(--radius-sm);
+            opacity: 0;
+            transition: opacity 0.15s, color 0.15s, background-color 0.15s;
+    
+            &:hover {
+                color: #d64545;
+                background: rgba(255, 255, 255, 0.1);
+            }
         }
     }
 }

@@ -63,6 +63,11 @@
                 @if (task.metadata['link']; as link) {
                     <a [href]="link" target="_blank" rel="noopener" class="task-link" (click)="$event.stopPropagation()">🔗</a>
                 }
+                 @if (roomStore.currentUser()?.role === 'facilitator') {
+                    <button class="task-delete-button" (click)="onDeleteTask($event, task.id)" title="Elimina task">
+                        <app-icon name="x" [size]="14" />
+                    </button>
+                }
             </li>
         }
     </ul>

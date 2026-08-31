@@ -115,4 +115,9 @@ export class TaskListComponent {
     this.roomStore.addTask(title);
     this.newTaskTitle.set('');
   }
+
+  onDeleteTask(event: MouseEvent, taskId: string): void {
+    event.stopPropagation(); // evita che scateni anche selectTask sul click del genitore <li>
+    this.roomStore.deleteTask(taskId);
+  }
 }

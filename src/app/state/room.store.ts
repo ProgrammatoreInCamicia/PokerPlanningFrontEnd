@@ -228,6 +228,10 @@ export class RoomStore {
         this.ws.send({ type: 'addTask', taskTitle });
     }
 
+    deleteTask(taskId: string): void {
+        this.ws.send({ type: 'deleteTask', taskId });
+    }
+
     promoteToFacilitator(targetUserId: string): void {
         this.ws.send({ type: 'promoteToFacilitator', targetUserId });
     }
