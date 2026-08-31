@@ -170,3 +170,67 @@
     }
 }
 
+
+@media (max-width: 768px) {
+    .room-content {
+        position: relative;
+
+        .room-main-content {
+            .header {
+                padding: 0.7rem 1rem;
+
+                .header-info {
+                h1 {
+                    font-size: 1rem;
+                }
+                .header-user {
+                    font-size: 0.75rem;
+                }
+                .role-tag {
+                    font-size: 0.6rem;
+                    padding: 0.1rem 0.4rem;
+                }
+                }
+
+                .header-actions {
+                gap: 0.3rem;
+                }
+            }
+
+            .participants {
+                padding: 0.5rem;
+            }
+        }
+
+        .room-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(85vw, 340px);
+            z-index: 250;
+            transform: translateX(100%);
+            transition: transform 0.25s ease-out;
+            box-shadow: -4px 0 20px var(--shadow-color);
+
+            &.drawer-open {
+                transform: translateX(0);
+            }
+        }
+    }
+
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 240;
+    }
+
+    .mobile-only {
+        display: inline-flex !important;
+    }
+}
+
+.mobile-only {
+  display: none;
+}

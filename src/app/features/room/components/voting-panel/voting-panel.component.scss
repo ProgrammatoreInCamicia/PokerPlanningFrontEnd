@@ -51,3 +51,26 @@
         font-weight: 600;
     }
 }
+
+@media (max-width: 768px) {
+    .cards {
+        justify-content: flex-start;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        padding: 8px 16px;
+
+        // nasconde la scrollbar visivamente, restando comunque scorrevole al tocco
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card {
+            flex-shrink: 0; // impedisce alle carte di restringersi per "farcele stare tutte"
+            scroll-snap-align: center;
+            height: 64px;
+            width: 46px;
+            font-size: 17px;
+        }
+    }
+}

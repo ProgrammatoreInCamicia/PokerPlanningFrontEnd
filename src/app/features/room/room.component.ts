@@ -47,6 +47,7 @@ export class RoomComponent implements OnInit {
   readonly roomNotFound = signal(false);
 
   readonly displayRoomName = computed(() => formatRoomName(this.roomId()));
+  readonly sidebarOpen = signal(false);
 
   constructor() {
     effect(() => {
@@ -145,5 +146,9 @@ export class RoomComponent implements OnInit {
 
   onPresetChange(preset: string): void {
     this.roomStore.changePreset(preset);
+  }
+
+  toggleSidebar(): void {
+    this.sidebarOpen.update((v) => !v);
   }
 }

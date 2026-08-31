@@ -15,6 +15,9 @@
           </span>
         </div>
         <div class="header-actions">
+          <button class="icon-button mobile-only" (click)="toggleSidebar()" title="Task">
+            <app-icon name="folder-up" [size]="18" />
+          </button>
           @if (roomStore.isFacilitator()) {
             <button class="icon-button" (click)="facilitatorDialog.openDialog()" title="Gestione stanza">
               <app-icon name="sliders" [size]="18" />
@@ -37,9 +40,13 @@
       <app-voting-panel class="cards" />
     </div>
   
-    <aside class="room-sidebar">
+    <aside class="room-sidebar" [class.drawer-open]="sidebarOpen()">
       <app-task-list [roomId]="roomId()" />
     </aside>
+
+    @if (sidebarOpen()) {
+      <div class="sidebar-backdrop" (click)="toggleSidebar()"></div>
+    }
   }
 
   @if (joining() && !needsName()) {
