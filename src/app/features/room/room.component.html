@@ -1,6 +1,7 @@
 <app-emoji-fly-overlay />
 <app-hit-flash />
 <app-results />
+<app-break-overlay />
 <div class="room-content" [class.blurred]="needsName()">
   @if (!needsName() && !joining() && !roomNotFound()) {
     <div class="room-main-content">
@@ -19,6 +20,16 @@
             <app-icon name="folder-up" [size]="18" />
           </button>
           @if (roomStore.isFacilitator()) {
+            <div class="break-popover-wrapper">
+              <button class="icon-button" (click)="toggleBreakPopover()" title="Avvia pausa">
+                <app-icon name="clock" [size]="18" />
+              </button>
+              @if (breakPopoverOpen()) {
+                <div class="popover-anchor">
+                  <app-break-popover />
+                </div>
+              }
+            </div>
             <button class="icon-button" (click)="facilitatorDialog.openDialog()" title="Gestione stanza">
               <app-icon name="sliders" [size]="18" />
             </button>

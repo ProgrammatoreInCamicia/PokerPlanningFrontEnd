@@ -1,0 +1,11 @@
+@if (isActive()) {
+    <div class="break-overlay">
+        <span class="break-label">Pausa</span>
+        <span class="break-countdown">{{ displayTime() }}</span>
+        @if (roomStore.isFacilitator()) {
+            <button class="action-button end-break-button" (click)="roomStore.cancelBreak()">
+                Termina pausa
+            </button>
+        }
+    </div>
+}

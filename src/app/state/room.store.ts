@@ -38,7 +38,7 @@ export class RoomStore {
     private readonly _lastEmojiThrow = signal<EmojiThrownMessage | null>(null);
     private readonly _locked = signal<boolean>(false);
     private readonly _kickedOrRejected = signal<'kicked' | 'locked' | null>(null);
-    
+    private readonly _breakEndsAt = signal<Date | null>(null);
     
     // public
     readonly preset = this._preset.asReadonly();
@@ -53,6 +53,7 @@ export class RoomStore {
     readonly lastEmojiThrow = this._lastEmojiThrow.asReadonly();
     readonly locked = this._locked.asReadonly();
     readonly kickedOrRejected = this._kickedOrRejected.asReadonly();
+    readonly breakEndsAt = this._breakEndsAt.asReadonly();
 
     // computed
     readonly activeTask = computed<TaskDto | null>(() => {
@@ -240,6 +241,14 @@ export class RoomStore {
         this.ws.send({ type: 'changeUserName', userName });
     }
 
+    startBreak(minutes: number): void {
+        this.ws.send({ type: 'startBreak', breakMinutes: minutes });
+    }
+
+    cancelBreak(): void {
+        this.ws.send({ type: 'cancelBreak' });
+    }
+
     // Messaggi in arrivo dal server
     private applyServerMessage(msg: IncomingMessage): void {
         switch (msg.type) {
@@ -250,6 +259,8 @@ export class RoomStore {
                 this._tasks.set(msg.tasks);
                 this._participants.set(msg.participants);
                 this._locked.set(msg.locked);
+                this._breakEndsAt.set(msg.breakEndsAt ? new Date(msg.breakEndsAt) : null);
+
                 // sincronizza lo stato locale "carta selezionata" con la verità del server:
                 // se il server dice che non ho votato, la mia selezione locale è stantia
                 const me = msg.participants.find((p) => p.userId === this._currentUser()?.userId);

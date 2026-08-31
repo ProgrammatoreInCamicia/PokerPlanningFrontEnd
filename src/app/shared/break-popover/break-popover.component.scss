@@ -1,0 +1,62 @@
+.break-popover {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    padding: 0.8rem;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.quick-picks {
+    display: flex;
+    gap: 0.4rem;
+
+    button {
+        flex: 1;
+        padding: 0.5rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        cursor: pointer;
+        font-weight: 600;
+
+        &:hover {
+            background: var(--accent);
+            color: var(--accent-text);
+            border-color: var(--accent);
+        }
+    }
+}
+
+.custom-pick {
+    display: flex;
+    gap: 0.4rem;
+
+    input {
+        flex: 1;
+        padding: 0.5rem 0.7rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--border-color);
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-size: 0.9rem;
+    }
+
+    button {
+        background: var(--accent);
+        color: var(--accent-text);
+        border: none;
+        border-radius: var(--radius-sm);
+        padding: 0 0.7rem;
+        cursor: pointer;
+
+        &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    }
+}

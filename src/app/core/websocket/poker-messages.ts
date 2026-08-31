@@ -13,7 +13,9 @@ export type OutgoingMessage =
     | { type: 'promoteToFacilitator'; targetUserId: string }
     | { type: 'changeUserName'; userName: string }
     | { type: 'addTask'; taskTitle: string }
-    | { type: 'deleteTask'; taskId: string };
+    | { type: 'deleteTask'; taskId: string }
+    | { type: 'startBreak'; breakMinutes: number }
+    | { type: 'cancelBreak' };
 
 export interface ParticipantDto {
     userId: string;
@@ -48,6 +50,7 @@ export interface RoomStateMessage {
     locked: boolean;
     tasks: TaskDto[];
     participants: ParticipantDto[];
+    breakEndsAt: string | null;
 }
 
 export interface VotesRevealedMessage {

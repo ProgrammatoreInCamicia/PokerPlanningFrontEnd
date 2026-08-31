@@ -20,13 +20,16 @@ import { FacilitatorDialogComponent } from '../../shared/facilitator-dialog/faci
 import { IconComponent } from '../../shared/icon/icon.component';
 import { RoomApiService } from '../../core/http/room-api.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BreakOverlayComponent } from '../../shared/break-overlay/break-overlay.component';
+import { BreakPopoverComponent } from '../../shared/break-popover/break-popover.component';
 
 @Component({
   selector: 'app-room',
   imports: [CommonModule, FormsModule, VotingPanelComponent, RouterLink,
     TaskListComponent, ParticipantsTableComponent, ConnectionBadgeComponent, 
     ModalComponent, EmojiFlyOverlayComponent, ResultsComponent, IconComponent,
-    HitFlashComponent, SettingDialogComponent, FacilitatorDialogComponent],
+    HitFlashComponent, SettingDialogComponent, FacilitatorDialogComponent,
+    BreakOverlayComponent, BreakPopoverComponent],
   templateUrl: './room.component.html',
   styleUrl: './room.component.scss',
 })
@@ -48,8 +51,16 @@ export class RoomComponent implements OnInit {
 
   readonly displayRoomName = computed(() => formatRoomName(this.roomId()));
   readonly sidebarOpen = signal(false);
+  readonly breakPopoverOpen = signal(false);
 
   constructor() {
+    effect((onCleanup) => {
+      if (this.breakPopoverOpen()) {
+        document.addEventListener('click', this.onDocumentClick);
+        onCleanup(() => document.removeEventListener('click', this.onDocumentClick));
+      }
+    });
+
     effect(() => {
       const reason = this.roomStore.kickedOrRejected();
       if (reason) {
@@ -150,5 +161,15 @@ export class RoomComponent implements OnInit {
 
   toggleSidebar(): void {
     this.sidebarOpen.update((v) => !v);
+  }
+
+  private readonly onDocumentClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.closest('.break-popover-wrapper')) return;
+    this.breakPopoverOpen.set(false);
+  };
+
+  toggleBreakPopover(): void {
+    this.breakPopoverOpen.update((v) => !v);
   }
 }

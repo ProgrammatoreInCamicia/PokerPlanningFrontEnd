@@ -14,7 +14,8 @@ export type IconName =
   | 'crown'
   | 'sun'
   | 'moon'
-  | 'monitor';
+  | 'monitor'
+  | 'clock';
 
 @Component({
   selector: 'app-icon',

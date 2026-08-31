@@ -170,6 +170,16 @@
     }
 }
 
+.break-popover-wrapper {
+    position: relative;
+}
+
+.popover-anchor {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 100;
+}
 
 @media (max-width: 768px) {
     .room-content {
