@@ -23,6 +23,7 @@ export interface ParticipantDto {
     role: 'voter' | 'facilitator';
     hasVoted: boolean;
     connected: boolean;
+    cardBackVersion: string | null;
 }
 
 export interface VoteResultDto {

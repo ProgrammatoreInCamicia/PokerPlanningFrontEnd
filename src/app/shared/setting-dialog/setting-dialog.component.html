@@ -17,6 +17,32 @@
         </div>
 
         <div class="settings-row">
+            <span class="settings-label">Retro della carta</span>
+            <div class="card-back-controls">
+                <div
+                    class="card-back-preview"
+                    [class.empty]="!myCardBackCss()"
+                    [style.background-image]="myCardBackCss()"
+                ></div>
+                <input
+                    #cardBackInput
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp"
+                    hidden
+                    (change)="onCardBackSelected($event)"
+                />
+                <button class="icon-button" (click)="cardBackInput.click()" [disabled]="uploadingCardBack()" title="Carica immagine">
+                    <app-icon name="folder-up" [size]="16" />
+                </button>
+                @if (myCardBackCss()) {
+                    <button class="icon-button" (click)="removeCardBack()" title="Rimuovi immagine">
+                        <app-icon name="trash" [size]="16" />
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="settings-row">
             <span class="settings-label">Tema</span>
             <div class="settings-toggle-group">
                 <button

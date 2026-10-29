@@ -54,7 +54,12 @@
           [class.not-connected]="!item.participant.connected"
         >
           <div class="card-inner">
-            <div class="card-face card-back" [class.has-voted]="item.participant.hasVoted"></div>
+            <div
+              class="card-face card-back"
+              [class.has-voted]="item.participant.hasVoted"
+              [class.has-image]="!!roomStore.cardBackUrls()[item.participant.userId]"
+              [style.background-image]="cardBackBackground(item.participant.userId)"
+            ></div>
             <div class="card-face card-front">
               {{ voteValueFor(item.participant) }}
             </div>

@@ -184,4 +184,9 @@ export class ParticipantsTableComponent {
       this.roomStore.promoteToFacilitator(userId);
     }
   }
+
+  cardBackBackground(userId: string): string | null {
+    const url = this.roomStore.cardBackUrls()[userId];
+    return url ? `url("${url}")` : null;
+  }
 }

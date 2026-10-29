@@ -2,6 +2,9 @@ import { computed, inject, Service, signal } from "@angular/core";
 import { WebsocketService } from "../core/websocket/websocket.service";
 import { CardPresets, EmojiThrownMessage, IncomingMessage, ParticipantDto, TaskDto } from "../core/websocket/poker-messages";
 import { ToastService } from "../core/toast/toast.service";
+import { RoomApiService } from "../core/http/room-api.service";
+import { clearCardBack, loadCardBack, saveCardBack } from "../core/card-back/card-back-storage";
+import { CardBackError, prepareCardBack } from "../core/card-back/prepare-card-back";
 
 export interface CurrentUser {
     userId: string;
@@ -25,6 +28,8 @@ export interface VoteStats {
 export class RoomStore {
     private readonly ws = inject(WebsocketService);
     private readonly toast = inject(ToastService);
+    private readonly roomApi = inject(RoomApiService);
+    private cardBackRestoreAttempted = false;
 
     // Stato privato scrivibile solo da qui
     private readonly _preset = signal<'fibonacci' | 'tshirt'>('fibonacci');
@@ -173,6 +178,7 @@ export class RoomStore {
 
     // azioni pubbliche 
     async connectAndJoin(roomId: string, user: CurrentUser): Promise<void> {
+        this.cardBackRestoreAttempted = false;
         this._roomId.set(roomId);
         this._currentUser.set(user);
         await this.ws.connect(roomId);
@@ -273,6 +279,10 @@ export class RoomStore {
                     if (!me.hasVoted) {
                         this._selectedVote.set(null);
                     }
+
+                    if (!me.cardBackVersion) {
+                        void this.restoreCardBackIfNeeded();
+                    }
                 }
                 break;
             case 'votesRevealed':
@@ -300,6 +310,7 @@ export class RoomStore {
     }
 
     private rejoinAfterReconnect(): void {
+        this.cardBackRestoreAttempted = false;
         const user = this._currentUser();
         if (!user) return;
 
@@ -309,5 +320,59 @@ export class RoomStore {
             userName: user.userName,
             role: user.role,
         });
+    }
+
+    readonly cardBackUrls = computed<Record<string, string>>(() => {
+        const roomId = this._roomId();
+        const urls: Record<string, string> = {};
+        for (const p of this._participants()) {
+            if (p.cardBackVersion) {
+                urls[p.userId] = this.roomApi.cardBackUrl(roomId, p.userId, p.cardBackVersion);
+            }
+        }
+        return urls;
+    });
+
+    async setCardBack(file: File): Promise<void> {
+        const user = this._currentUser();
+        if (!user) return;
+
+        try {
+            const image = await prepareCardBack(file);
+            await this.roomApi.uploadCardBack(this._roomId(), user.userId, image);
+            await saveCardBack(image); // dopo il successo, per non persistere roba rifiutata dal server
+            this.toast.success('Retro della carta aggiornato');
+        } catch (err) {
+            console.error('Upload retro carta fallito:', err);
+            this.toast.error(err instanceof CardBackError ? err.message : "Impossibile caricare l'immagine");
+        }
+    }
+
+    async removeCardBack(): Promise<void> {
+        clearCardBack(); // prima di tutto, così non viene ripristinata al prossimo join
+        const user = this._currentUser();
+        if (!user) return;
+
+        try {
+            await this.roomApi.deleteCardBack(this._roomId(), user.userId);
+        } catch (err) {
+            console.error('Rimozione retro carta fallita:', err);
+            this.toast.error("Impossibile rimuovere l'immagine");
+        }
+    }
+
+    private async restoreCardBackIfNeeded(): Promise<void> {
+        if (this.cardBackRestoreAttempted) return;
+        this.cardBackRestoreAttempted = true;
+
+        const user = this._currentUser();
+        const image = await loadCardBack();
+        if (!user || !image) return;
+
+        try {
+            await this.roomApi.uploadCardBack(this._roomId(), user.userId, image);
+        } catch (err) {
+            console.warn('Ripristino retro carta fallito:', err);
+        }
     }
 }

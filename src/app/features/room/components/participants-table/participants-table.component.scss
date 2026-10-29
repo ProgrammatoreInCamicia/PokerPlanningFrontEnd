@@ -172,6 +172,11 @@
     border-color: #ffd700;
     box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
   }
+  &.has-image {
+    background-color: var(--accent); // segnaposto mentre l'immagine carica
+    background-size: cover;
+    background-position: center;
+  }
 }
 
 .card-front {

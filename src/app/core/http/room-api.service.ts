@@ -57,4 +57,22 @@ export class RoomApiService {
             return false;
         }
     }
+
+    async uploadCardBack(roomId: string, userId: string, image: Blob): Promise<void> {
+        const formData = new FormData();
+        formData.append('file', image, 'card-back.jpg');
+        await firstValueFrom(
+            this.http.post(`${this.baseUrl}/${roomId}/participants/${userId}/cardBack`, formData),
+        );
+    }
+
+    async deleteCardBack(roomId: string, userId: string): Promise<void> {
+        await firstValueFrom(
+            this.http.post(`${this.baseUrl}/${roomId}/participants/${userId}/cardBack/delete`, {}),
+        );
+    }
+
+    cardBackUrl(roomId: string, userId: string, version: string): string {
+        return `${this.baseUrl}/${roomId}/participants/${userId}/cardBack?v=${version}`;
+    }
 }
